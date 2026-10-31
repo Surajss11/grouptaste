@@ -1,0 +1,109 @@
+{
+  "target_type": "movie",
+  "people": [
+    {
+      "name": "Asha",
+      "likes": [
+        "Arijit Singh",
+        "3 Idiots"
+      ]
+    },
+    {
+      "name": "Ravi",
+      "likes": [
+        "Interstellar",
+        "Hans Zimmer"
+      ]
+    },
+    {
+      "name": "Meera",
+      "likes": [
+        "Taylor Swift",
+        "Little Women"
+      ]
+    }
+  ],
+  "picks": [
+    {
+      "name": "PK",
+      "score": 0.3708,
+      "fans": [
+        "Asha"
+      ],
+      "missing": [
+        "Ravi",
+        "Meera"
+      ],
+      "entity_id": "3984FA3B-8CEA-4360-870A-815FBCB027AA"
+    },
+    {
+      "name": "The Imitation Game",
+      "score": 0.3125,
+      "fans": [
+        "Ravi"
+      ],
+      "missing": [
+        "Asha",
+        "Meera"
+      ],
+      "entity_id": "8B41843D-89DF-48D9-AD91-4F61C2B5C37B"
+    },
+    {
+      "name": "Whiplash",
+      "score": 0.3125,
+      "fans": [
+        "Ravi"
+      ],
+      "missing": [
+        "Asha",
+        "Meera"
+      ],
+      "entity_id": "65745A20-2FE5-44EC-8349-BDA0C8522CEB"
+    },
+    {
+      "name": "A Beautiful Mind",
+      "score": 0.3042,
+      "fans": [
+        "Ravi"
+      ],
+      "missing": [
+        "Asha",
+        "Meera"
+      ],
+      "entity_id": "5E0FB130-1D97-471E-97DE-9979AC5E3585"
+    },
+    {
+      "name": "The Shawshank Redemption",
+      "score": 0.2458,
+      "fans": [
+        "Ravi"
+      ],
+      "missing": [
+        "Asha",
+        "Meera"
+      ],
+      "entity_id": "0C397B97-645C-43D3-812D-8872E47C69AB"
+    }
+  ],
+  "venue": [
+    {
+      "name": "Symbiosis Centre for Media & Communication (SCMC Pune)",
+      "address": "Symbiosis Campus off, Symbiosis Rd, Viman Nagar Pune, Maharashtra 411014 India",
+      "entity_id": "2AD42987-CFB3-4596-A29E-3036B5B25C19"
+    },
+    {
+      "name": "Shambhala - by the lake",
+      "address": "Plot no. 67, Village Bhajgaon, Kamshet - Kundali Road, Taluka Maval Kamshet, Maharashtra 410405 India",
+      "entity_id": "3CF6BAD0-973E-4069-8E35-492DCBCBF277"
+    },
+    {
+      "name": "Godaam Speciality Coffee Co.",
+      "address": "1120, Model Colony Rd Model Colony, Shivajinagar Pune, Maharashtra 411016 India",
+      "entity_id": "AC3B4004-FCA1-4E25-8A2B-A769182D63B2"
+    }
+  ],
+  "n_requests": 5,
+  "notes": [],
+  "ran_at": "2026-10-31T07:56:45+05:30",
+  "api": "Qloo hackathon Taste AI via qloo exec recommend -> /v2/insights"
+}

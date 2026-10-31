@@ -2,3 +2,11 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .env
+.env.*
+*.pem
+secrets/
+submission/.env
+.qloo/
+config.local
+docs/raw_api_dump.json
+.venv/

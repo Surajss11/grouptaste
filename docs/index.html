@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>GroupTaste — Qloo-powered group night planner</title>
+<style>
+  :root { --bg:#0b1020; --card:#141a2e; --ink:#e8ecff; --muted:#9aa3c7; --accent:#7c5cff; --ok:#3ddc97; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--ink); line-height:1.5; }
+  main { max-width: 920px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  h1 { font-size: 1.85rem; margin: 0 0 .25rem; }
+  .tag { color: var(--accent); font-weight: 600; letter-spacing: .02em; }
+  .muted { color: var(--muted); }
+  .card { background: var(--card); border: 1px solid #243056; border-radius: 14px; padding: 1.1rem 1.25rem; margin: 1rem 0; }
+  .grid { display:grid; gap: .75rem; }
+  @media(min-width:720px){ .grid.cols-3 { grid-template-columns: repeat(3,1fr);} }
+  .person { font-size: .95rem; }
+  .person strong { display:block; margin-bottom: .2rem; }
+  ol.picks { padding-left: 1.2rem; }
+  ol.picks li { margin: .55rem 0; }
+  .score { color: var(--ok); font-variant-numeric: tabular-nums; }
+  .weak { color: var(--muted); font-size: .9rem; }
+  a { color: #9cbcff; }
+  code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  pre { background:#0a0f1c; padding:1rem; border-radius:10px; overflow:auto; font-size:.85rem; }
+  .btn { display:inline-block; background:var(--accent); color:white; text-decoration:none; padding:.6rem 1rem; border-radius:10px; font-weight:600; }
+  footer { margin-top: 2rem; color: var(--muted); font-size: .9rem; }
+</style>
+</head>
+<body>
+<main>
+  <p class="tag">Qloo Agentic Hackathon · live API sample</p>
+  <h1>GroupTaste</h1>
+  <p class="muted">Plan a night out the whole group can live with — grounded in Qloo Taste AI, not whoever argues hardest.</p>
+  <p>
+    <a class="btn" href="https://github.com/Surajss11/grouptaste">GitHub repo</a>
+    &nbsp; <a href="sample_run.md">Raw sample run</a>
+    &nbsp; <a href="https://qloo.devpost.com/">Hackathon</a>
+  </p>
+
+  <div class="card">
+    <h2 style="margin-top:0;font-size:1.15rem">This demo page</h2>
+    <p>Judges: this page shows a <strong>real live run</strong> against the Qloo hackathon API
+    (31 Oct 2026, ~7:56 AM IST). The CLI is the product; clone the repo and run it with your own key for a fresh group.
+    API keys are never embedded in this site.</p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;font-size:1.15rem">Sample group</h2>
+    <div class="grid cols-3" id="people"></div>
+    <p class="muted" style="margin-bottom:0">Target: <strong>movie</strong> · City: <strong>Pune</strong></p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;font-size:1.15rem">Consensus picks</h2>
+    <ol class="picks" id="picks"></ol>
+    <p class="muted">Coverage of 1/3 is honest — this group's likes barely overlap, so the score leans on the combined-group Qloo list.</p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;font-size:1.15rem">Where to go (Qloo places)</h2>
+    <ul id="venues"></ul>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;font-size:1.15rem">How Qloo is used</h2>
+    <ol>
+      <li><code>qloo exec recommend</code> per person → Insights <code>/v2/insights</code></li>
+      <li>One combined-group <code>recommend</code></li>
+      <li>Optional <code>place</code> recommend with <code>filter_location</code></li>
+      <li>Name ambiguity resolved via <code>/search</code>, then retried with entity IDs</li>
+    </ol>
+    <p class="muted" id="reqcount"></p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0;font-size:1.15rem">Run it yourself</h2>
+<pre>npm i -g @qloo/qloo-harness
+qloo config set api-key "$QLOO_API_KEY"
+# hackathon base URL + trust (see README)
+python -m grouptaste \
+  --person "Asha: Arijit Singh, 3 Idiots" \
+  --person "Ravi: Interstellar, Hans Zimmer" \
+  --person "Meera: Taylor Swift, Little Women" \
+  --type movie --city "Pune"</pre>
+  </div>
+
+  <footer>
+    MIT licensed · Aggregate taste affinities only — not anyone's real private preferences.
+    Sample ran_at: 2026-10-31T07:56:45+05:30
+  </footer>
+</main>
+<script>
+const SAMPLE = {"target_type": "movie", "people": [{"name": "Asha", "likes": ["Arijit Singh", "3 Idiots"]}, {"name": "Ravi", "likes": ["Interstellar", "Hans Zimmer"]}, {"name": "Meera", "likes": ["Taylor Swift", "Little Women"]}], "picks": [{"name": "PK", "score": 0.3708, "fans": ["Asha"], "missing": ["Ravi", "Meera"], "entity_id": "3984FA3B-8CEA-4360-870A-815FBCB027AA"}, {"name": "The Imitation Game", "score": 0.3125, "fans": ["Ravi"], "missing": ["Asha", "Meera"], "entity_id": "8B41843D-89DF-48D9-AD91-4F61C2B5C37B"}, {"name": "Whiplash", "score": 0.3125, "fans": ["Ravi"], "missing": ["Asha", "Meera"], "entity_id": "65745A20-2FE5-44EC-8349-BDA0C8522CEB"}, {"name": "A Beautiful Mind", "score": 0.3042, "fans": ["Ravi"], "missing": ["Asha", "Meera"], "entity_id": "5E0FB130-1D97-471E-97DE-9979AC5E3585"}, {"name": "The Shawshank Redemption", "score": 0.2458, "fans": ["Ravi"], "missing": ["Asha", "Meera"], "entity_id": "0C397B97-645C-43D3-812D-8872E47C69AB"}], "venue": [{"name": "Symbiosis Centre for Media & Communication (SCMC Pune)", "address": "Symbiosis Campus off, Symbiosis Rd, Viman Nagar Pune, Maharashtra 411014 India", "entity_id": "2AD42987-CFB3-4596-A29E-3036B5B25C19"}, {"name": "Shambhala - by the lake", "address": "Plot no. 67, Village Bhajgaon, Kamshet - Kundali Road, Taluka Maval Kamshet, Maharashtra 410405 India", "entity_id": "3CF6BAD0-973E-4069-8E35-492DCBCBF277"}, {"name": "Godaam Speciality Coffee Co.", "address": "1120, Model Colony Rd Model Colony, Shivajinagar Pune, Maharashtra 411016 India", "entity_id": "AC3B4004-FCA1-4E25-8A2B-A769182D63B2"}], "n_requests": 5, "notes": [], "ran_at": "2026-10-31T07:56:45+05:30", "api": "Qloo hackathon Taste AI via qloo exec recommend -> /v2/insights"};
+const people = document.getElementById('people');
+SAMPLE.people.forEach(p => {
+  const d = document.createElement('div');
+  d.className = 'person';
+  d.innerHTML = `<strong>${p.name}</strong><span class="muted">${p.likes.join(', ')}</span>`;
+  people.appendChild(d);
+});
+const picks = document.getElementById('picks');
+SAMPLE.picks.forEach(p => {
+  const li = document.createElement('li');
+  const cov = `${p.fans.length}/${p.fans.length + p.missing.length}`;
+  li.innerHTML = `<strong>${p.name}</strong> · <span class="score">score ${p.score}</span> · in ${cov} lists
+    <div class="weak">fans: ${p.fans.join(', ') || '—'} · weakest for: ${p.missing.join(', ') || '—'}</div>`;
+  picks.appendChild(li);
+});
+const venues = document.getElementById('venues');
+SAMPLE.venue.forEach(v => {
+  const li = document.createElement('li');
+  li.innerHTML = `<strong>${v.name}</strong><div class="weak">${v.address || ''}</div>`;
+  venues.appendChild(li);
+});
+document.getElementById('reqcount').textContent =
+  `${SAMPLE.n_requests} Qloo Insights requests in this run · ${SAMPLE.api}`;
+</script>
+</body>
+</html>

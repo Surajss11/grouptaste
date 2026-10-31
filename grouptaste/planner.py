@@ -177,7 +177,7 @@ def render_markdown(plan: Plan) -> str:
         "",
         "## Evidence",
         "",
-        f"{len(plan.requests)} Qloo Insights requests (`/v2/insights`), one per person plus one for the group.",
+        f"{len(plan.requests)} Qloo Insights requests (`/v2/insights`): one per person, one combined-group call, plus place lookups when --city is set.",
         "Qloo results describe aggregate taste affinities, not any person's actual preferences.",
     ]
     return "\n".join(lines) + "\n"
